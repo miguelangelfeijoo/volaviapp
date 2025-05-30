@@ -1,5 +1,6 @@
 // Constantes globales
-const BASE_URL = 'http://localhost:9000/';
+//const BASE_URL = 'http://localhost:9000/';
+const BASE_URL = 'https://volaviapp.onrender.com/';
 const MAX_INITIALIZATION_ATTEMPTS = 3;
 const MAP_STYLES = {
 	default: {
