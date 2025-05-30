@@ -1,0 +1,460 @@
+/* General styles */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+@import 'others.css';
+@import 'expenses.css';
+@import 'diary.css';
+@import 'small-devices.css';
+
+:root{
+	--text-color: #2C3532;
+	--primary-color:#0F6466;
+	--secondary-color:#6BC0BB;
+	--alt-color: #D8B08C;
+	--white-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--primary-color);
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+
+h2 {
+    color: #444;
+    margin-bottom: 15px;
+}
+
+#app {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Modern Header */
+.modern-header {
+    background: var(--primary-color) ;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white-color);
+}
+
+.modern-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.modern-header .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.modern-header .welcome-text {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.modern-header .header-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.header-right > a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-logo {
+    height: 55px; 
+    width: auto;
+    object-fit: contain;
+}
+
+.header-left h1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn i {
+    font-size: 1rem;
+}
+
+.btn-primary {
+	color: var(--white-color);
+    background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: white;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Plan-your-trip Page */
+.country-details-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 3rem 0 3rem;
+}
+
+.country-title {
+    color: red;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.visit-form-container {
+    padding: 2rem 3rem;
+    width: 60%;
+    min-width: 500px;
+    box-sizing: border-box;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.modern-input, .modern-textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.modern-input:focus, .modern-textarea:focus {
+    outline: none;
+    border-color: #2196f3;
+}
+
+.modern-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.moder-input {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.dates-container {
+    display: flex;
+    gap: 4rem;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.date-field {
+    flex: 1;
+    max-width: calc(50% - 2rem);
+}
+
+.date-field-full-width {
+    flex: 1;
+    max-width: 100%;
+}
+
+.date-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.date-field input[type="date"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.date-field input[type="date"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Estilos para títulos de sección */
+.section-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.section-title i {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.8rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
+}
+
+/* Estilos para subtítulos */
+.subsection-title {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.subsection-title i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.card h3.section-title {
+    margin-top: 0;
+}
+
+/* Auth Forms Styling */
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.8rem;
+    padding-bottom:5px;
+    background: rgba(255, 255, 255, 0.95); /*o blanco*/
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.auth-form h4 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.auth-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.auth-form input {
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+}
+
+.auth-form button {
+    background:var(--primary-color);
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.auth-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 60, 114, 0.4);
+}
+
+.auth-form p {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+}
+
+.auth-form a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.auth-form a:hover {
+    color: #2a5298;
+}
+
+/* Hidden class */
+.hidden {
+    display: none !important;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-right: 0.2rem;
+}
+
+.category-header h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    margin-top: 10px;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.category-header h4 i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+
+.modal-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.modal-header .close {
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-top: -5px;
+    transition: all 0.2s ease;
+}
+
+.modal-header .close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.country-details {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.alert-ok{
+	background-color: var(--secondary-color);
+	color: var(--white-color);
+}
+
+.logo {
+	width: 300px;
+    margin-bottom: 25px;
+    margin-top: 50px;
+}
+
+
+
+

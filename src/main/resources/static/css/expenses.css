@@ -1,0 +1,198 @@
+.expense-form {
+    padding: 1.5rem;
+}
+
+.expense-form .form-group {
+    margin-bottom: 1.2rem;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.expense-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.expense-form input {
+    width: 95%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.expense-form input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+}
+
+.expense-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.expense-form-buttons button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+}
+
+.expense-modal-content .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: color 0.3s ease;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.expense-modal-content .close:hover {
+    color: #ff0000;
+    background-color: rgba(30, 60, 114, 0.1);
+}
+
+/* Modal para añadir gastos */
+.expense-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.expense-modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.expense-modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+/* Expense Planning Styles */
+.expense-planning {
+    margin-bottom: 2rem;
+}
+
+.expense-categories {
+/*     display: grid; */
+/*     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); */
+/*     gap: 1.5rem; */
+	display:flex;
+	justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;   
+}
+
+.expense-planning.card, .expense-categories, .expense-summary {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.expense-category {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    width:100%;
+}
+
+.expense-categories > .expense-category:nth-child(-n+4) {
+    flex: 1;                    /* Ocupa la columna izquierda */
+}
+
+.total-expenses {
+	display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-top: 1rem;
+    padding-bottom: 10px;
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: var(--alt-color);
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.btn-delete:disabled {
+  cursor: not-allowed;   
+  opacity: 0.5;             
+  color: var(--text-color);               
+  pointer-events: none;       
+}
+
+
+.btn-delete:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+    transform: scale(1.1);
+}
+
+.expense-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Equivale a 60% - 40% */
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+}
+
+/* Estilo para cada categoría */
+.expense-category {
+  background: #f5f5f5;
+  padding: 3px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Contenedor del gráfico */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure table fits within card */
+.card table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.card table th, .card table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <title>Volavia</title>
+    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div id="app" class="d-flex flex-column justify-content-center align-items-center vh-100">
+
+		<img class="logo" th:src="@{/img/logo.png}"></img>
+		<div class="auth-form" id="login-form">
+			<h4>Iniciar Sesión</h4>
+
+			<form id="loginForm" th:action="@{/auth/login}" method="post">
+				<div th:if="${mensaje}" class="alert alert-success" role="alert"
+					id="mensajeExitoso">
+					<span th:text="${mensaje}"></span>
+				</div>
+				<input type="text" placeholder="Usuario" id="loginUsername"
+					name="username" required> 
+				<input type="password" placeholder="Contraseña" 
+					id="loginPassword" name="password" required>
+				<button type="submit">Iniciar Sesión</button>
+			</form>
+			<p>
+				¿No tienes cuenta? <a th:href="@{/user/register}" id="showRegister">Regístrate</a>
+			</p>
+		</div>
+		<br>
+			<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+	</div>
+	
+	<div class="position-fixed bottom-0 start-50 translate-middle-x text-white py-2 px-3">
+    	<small>Powered by Cristina Mellado</small>
+	</div>
+	
+	
+</body>
+</html>

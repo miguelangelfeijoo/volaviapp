@@ -1,0 +1,201 @@
+#titulo h1,h3{
+	text-align:center;
+	font-weight: 200;
+}
+
+/* Map Styles */
+.contenedor-mapa{
+	background-color: white;
+	padding-top:8px;
+}
+#map {
+    width: 100%;
+    margin: 1% auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.content-wrapper h1{
+	text-align:center;
+	font-weight: 400;
+}
+
+/* Estilo para el contenedor principal de la página */
+.country-details-container .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Contenedor de la grid con 2 columnas */
+.grid-container {
+   /*  display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+/* Estilo para las columnas */
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+/* Asegurarse de que las fechas y el contador no se desborden */
+.dates-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.add-expense-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--alt-color);
+    padding: 0.2rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-right: 0.2rem;
+    margin-top: 1rem;
+}
+
+.add-expense-icon:hover {
+    background-color: rgba(220, 53, 69, 0.1);
+    transform: scale(1.1);
+}
+
+
+.expense-description {
+    color: #495057;
+}
+
+.expense-amount {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-right: 1rem;
+    min-width: 80px;
+    text-align: right;
+}
+
+.countdown-timer {
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.countdown-timer h4 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.timer-display {
+    font-size: 1.75rem;
+    color: var(--text-color);
+}
+
+.timer-display .time-segment {
+    display: inline-block;
+    padding: 4px 8px;
+    color: var(--primary-color);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.gastos-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: white;
+    font-family: 'Helvetica Neue', sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.gastos-table th {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #ccc;
+}
+
+.gastos-table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+.gastos-table th,
+.gastos-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*Grafico*/
+#mi-grafico{
+	flex:1;
+	max-height:250px;
+	max-width: 500px;
+	margin-top: 1.5rem;
+}
+
+.gastos-por-categoria {
+	width: 100%;
+}
+
+.btn-group-horizontal .btn {
+  padding: 0.25rem 0.4rem; /* Más pequeño que el default de btn-sm */
+  min-width: 30px; /* Opcional, para que no se encojan demasiado */
+}
+
+.descripcion-editable  {
+  width: 190px;        /* ancho fijo */
+  flex-shrink: 0;      /* no se reduce */
+  overflow-wrap: break-word; /* para que el texto se ajuste */
+  white-space: normal; /* para que se quiebre texto si es muy largo */
+}
+
+
+
+

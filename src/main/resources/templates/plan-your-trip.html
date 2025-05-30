@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volavia</title>
+    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+   	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+   
+</head>
+<body class="country-details-page">
+    <div id="app">
+        <nav class="navbar navbar-expand-lg navbar-dark modern-header px-3">
+    <div class="container-fluid">
+        <a class="navbar-brand header-left" href="/map/show">
+            <img src="/img/logo.png" alt="Logo Mi Diario de Viajes" class="header-logo">
+        </a>
+
+        <!-- Botón hamburguesa -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido colapsable -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <span class="nav-link welcome-text text-white" th:text="'¡Hola ' + ${session.usuario} + '!'"></span>
+                </li>
+                <li class="nav-item">
+                <a id="back-to-map" class="btn btn-outline" th:href="@{/map/show}">
+                    <i class="fas fa-map-marked-alt"></i> Elige tu destino
+                </a>
+                </li>
+                <li class="nav-item">
+                <a id="travel-diary" class="btn btn-outline" th:href="@{/diary/travel-diary(name=${countryName}, tripId=${trip.id})}">
+                    <i class="fas fa-book-open"></i> Diario de viaje
+                </a>
+                </li>
+                <li class="nav-item">
+               <a id="logout" class="btn btn-outline" th:href="@{/auth/logout}">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+        <main class="country-details-container">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1>Planifica tu viaje a <span th:text="${countryName}" style="color: #d8b08c;">Nombre del País</span></h1>
+                    <h3>"El primer paso de tu viaje empieza aquí"</h3>
+                </div>
+            	<div th:if="${mensaje}" class="alert alert-success" role="alert"
+				id="mensajeExitoso" style="margin-top:15px;">
+					<span th:text="${mensaje}"></span>
+				</div>
+                <!-- Contenedor de las dos columnas -->
+                <div class="grid-container">
+                    <!-- Lado izquierdo (Elige las fechas y tiempo restante) -->
+                    <div class="left-column">
+                        <div class="expense-planning card">
+                        	<form id="visit-form" th:action="@{/trips/guardarVisita}" th:object="${trip}" method="post">
+                                <h3 class="section-title"><i class="fas fa-calendar-check"></i> Fechas del viaje</h3>
+                                <div class="form-group dates-container">
+                                    <div class="date-field">
+                                        <label for="trip.fechaSalida"><i class="fas fa-plane-departure"></i> Fecha de salida</label>
+                                        <input 
+                                        type="date"
+                                        id="fechaSalida"
+                                        name="fechaSalida"
+                                        class="modern-input"
+                                        th:value="${trip.fechaSalida != null ? #temporals.format(trip.fechaSalida, 'yyyy-MM-dd') : ''}"
+                                        required /> <!-- Utilizo el id fecha salida para usarlo en mi script -->
+                                    </div>
+                                    <div class="date-field">
+                                        <label for="trip.fechaLlegada"><i class="fas fa-plane-arrival"></i> Fecha de llegada</label>
+                                        <input 
+                                        type="date"
+                                        id="fechaLlegada"
+                                        name="fechaLlegada"
+                                        class="modern-input"
+                                        th:value="${trip.fechaLlegada != null ? #temporals.format(trip.fechaLlegada, 'yyyy-MM-dd') : ''}"
+                                        required>
+                                    </div>
+                                </div>
+                                
+                                <!-- Campos ocultos para countryName y tripId -->
+                                <input type="hidden" name="countryName" th:value="${countryName}">
+                                <input type="hidden" name="tripId" th:value="${trip.id}" />
+                                
+                                <!-- Contador regresivo -->
+                                <div class="countdown-timer">
+                                    <h4><i class="fas fa-hourglass-half"></i> Tiempo restante para tu viaje</h4>
+                                    <div class="timer-display">
+                                        <span class="time-segment" th:if="${diasRestantes != null}">
+                                            <span th:text="${diasRestantes}">-</span> días
+                                        </span>
+                                        <span class="time-segment" th:unless="${diasRestantes != null}">
+                                            - días
+                                        </span>
+                                    </div>
+                                </div>
+                   			 </form>
+                        </div>
+                    </div>
+                    <!-- Lado derecho (Presupuesto y Resumen de Gastos) -->
+                    <div class="right-column">
+                        <div class="expense-planning card">
+                            <h3 class="section-title"><i class="fas fa-coins"></i> Presupuesto</h3>
+                            <div class="expense-grid">
+							  <div class="category-row">
+							    <div class="expense-category">
+							      <div class="category-header">
+							        <h4><i class="fas fa-plane"></i> Vuelos</h4>
+							        <button class="add-expense-icon" data-category="flight">
+							          <i class="fas fa-plus"></i>
+							        </button>
+							      </div>
+							    </div>
+							    <div class="expense-category">
+							      <div class="category-header">
+							        <h4><i class="fas fa-hotel"></i> Alojamiento</h4>
+							        <button class="add-expense-icon" data-category="hotels">
+							          <i class="fas fa-plus"></i>
+							        </button>
+							      </div>
+							    </div>
+							    <div class="expense-category">
+							      <div class="category-header">
+							        <h4><i class="fas fa-bus"></i> Transporte</h4>
+							        <button class="add-expense-icon" data-category="transport">
+							          <i class="fas fa-plus"></i>
+							        </button>
+							      </div>
+							    </div>
+							    <div class="expense-category">
+							      <div class="category-header">
+							        <h4><i class="fas fa-money-bill-wave"></i> Gastos Varios</h4>
+							        <button class="add-expense-icon" data-category="other">
+							          <i class="fas fa-plus"></i>
+							        </button>
+							      </div>
+							    </div>
+							  </div>
+							
+							  <div class="chart-container">
+							    <canvas id="mi-grafico" th:if="${gastosOrdenados.size() != 0}"></canvas>
+							    <p th:text="'No hay gastos registrados.'" th:if="${gastosOrdenados.size() == 0}"></p>
+							  </div>
+							  <!-- Obtencion del id del viaje para utilizar en graphic.js -->
+							  <div id="trip-id" th:data-trip-id="${trip.id}"></div>
+							  
+							</div>
+							<!--  -->
+
+							 <!-- Resumen de Gastos -->
+							<div class="expense-summary">
+							    <h4 class="subsection-title">
+							        <i class="fas fa-calculator"></i> Resumen de Gastos
+							    </h4>
+						      
+							    <div class="gastos-por-categoria" th:if="${gastosOrdenados.size() != 0}">
+							        <table class="gastos-table">
+							            <thead>
+							                <tr>
+							                    <th>Descripción</th>
+							                    <th>Categoría</th>
+							                    <th>Importe (€)</th>
+							                    <th>Borrar</th>
+							                </tr>
+							            </thead>
+										<tbody>
+										    <tr th:each="gasto : ${gastosOrdenados}">
+										        <td th:text="${gasto.descripcion}">Descripción</td>
+										        <td th:text="${gasto.category.displayName}">Categoría</td>
+										        <td th:text="${gasto.importe}">0.00</td>
+										        <td>
+										            <form th:action="@{/expenses/deleteExpense}" method="post" style="display:inline;" th:onsubmit="return confirm('¿Seguro que quieres eliminar este gasto?');">
+										                <input type="hidden" name="expenseId" th:value="${gasto.id}" />
+										                <input type="hidden" name="tripId" th:value="${trip.id}" />
+										                <input type="hidden" name="countryName" th:value="${countryName}" />
+										                <button type="submit" class="btn-delete" title="Eliminar gasto">
+										                    <i class="fas fa-trash-alt"></i>
+										                </button>
+										            </form>
+										        </td>
+										    </tr>
+										</tbody>
+							        </table>
+							        <div class="total-expenses">
+							          <span><strong>Total:</strong></span> 
+						      		  <span th:if="${trip != null}" th:text="'&nbsp;&nbsp;' + ${trip.importeTotal} + ' €'"> 0.00 €</span>
+							        </div>
+							    </div>
+							</div>
+                        </div>
+                    </div>
+					<div class="save-button-container" style="text-align: center;">
+					    <button type="submit" class="btn btn-primary" form="visit-form">
+					        Guardar visita
+					    </button>
+					</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Modal para añadir gastos -->
+	<div id="expense-modal" class="expense-modal">
+		<div class="expense-modal-content">
+			<div class="modal-header">
+				<h3>Añadir Gasto</h3>
+				<span class="close">&times;</span>
+			</div>
+			<form id="expense-form" class="expense-form" th:action="@{/expenses/addExpense}" method="post">
+				<div class="form-group">
+					<label for="expense-description">Descripción</label> <input
+						type="text" id="expense-description" required name="descripcion"
+						placeholder="Describe el gasto">
+				</div>
+				<div class="form-group">
+					<label for="expense-amount">Cantidad (€)</label> <input
+						type="number" id="expense-amount" required min="0" step="0.1" name="importe"
+						placeholder="0.00">
+				</div>
+                <input type="hidden" name="tripId" th:value="${trip.id}" />
+                <input type="hidden" name="countryName" th:value="${countryName}" />
+                <input type="hidden" name="category" id="expense-category">
+                
+				<div class="expense-form-buttons">
+					<button type="button" class="btn btn-outline"
+						onclick="expenseManager.hideAddExpenseModal()">
+						<i class="fas fa-times"></i> Cancelar
+					</button>
+					<button type="submit" class="btn btn-primary">
+						Guardar
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script th:src="@{/js/graphic.js}"></script>
+	<script th:src="@{/js/expense.js}"></script>
+	<script th:src="@{/js/trip-dates.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+    <title>Volavia</title>
+    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div id="app"
+		class="d-flex flex-column justify-content-center align-items-center vh-100">
+		<img class="logo" th:src="@{/img/logo.png}"></img>
+				<div class="alert alert-success" style="margin-top:15px;" role="alert"
+			th:if="${mensajeResultado!=null and res.equals('ok')}">
+			<p th:text="${mensajeResultado}"></p>
+		</div>
+		<div class="alert alert-danger" style="margin-top:15px;" role="alert"
+			th:if="${mensajeResultado!=null and res.equals('ko')}">
+			<p th:text="${mensajeResultado}"></p>
+		</div>
+		<div class="auth-form" id="register-form">
+			<h4>Crea tu cuenta para empezar</h4><br/>
+			<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+			<form id="registerForm" th:action="@{/user/register}" method="post">
+				<input type="text" placeholder="Usuario" id="username"
+					name="username" required> <input type="password"
+					placeholder="Contraseña" id="password" name="password" required>
+				<input type="email" placeholder="Email" id="email" name="email"
+					required>
+				<button type="submit">Crear cuenta</button>
+			</form>
+			<p>
+				¿Ya tienes cuenta? <a th:href="@{/auth/user-login}" id="showLogin">Inicia
+					Sesión</a>
+			</p>
+		</div>
+		<br>
+
+	</div>
+</body>
+</html>

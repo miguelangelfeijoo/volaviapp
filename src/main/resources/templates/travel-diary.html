@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volavia</title>
+    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+	<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+	<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="country-details-page">
+	<div id="app">
+		<nav class="navbar navbar-expand-lg navbar-dark modern-header px-3">
+		    <div class="container-fluid">
+		        <a class="navbar-brand header-left" href="/map/show">
+		            <img src="/img/logo.png" alt="Logo Mi Diario de Viajes" class="header-logo">
+		        </a>
+		
+		        <!-- Botón hamburguesa -->
+		        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+		            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		            <span class="navbar-toggler-icon"></span>
+		        </button>
+		
+		        <!-- Contenido colapsable -->
+		        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+		                <li class="nav-item">
+		                    <span class="nav-link welcome-text text-white" th:text="'¡Hola ' + ${session.usuario} + '!'"></span>
+		                </li>
+		                <li class="nav-item">
+		                    <a class="btn btn-outline" th:href="@{/map/show}">
+		                        <i class="fas fa-map-marked-alt"></i> Elige tu destino
+		                    </a>
+		                </li>
+		                <li class="nav-item">
+		                    <a class="btn btn-outline" th:href="@{/trips/plan-your-trip(name=${countryName})}">
+		                        <i class="fas fa-book-open"></i> Planifica tu viaje
+		                    </a>
+		                </li>
+		                <li class="nav-item">
+		                    <a class="btn btn-outline" th:href="@{/auth/logout}">
+		                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+		                    </a>
+		                </li>
+		            </ul>
+		        </div>
+		    </div>
+		</nav>
+
+		<main class="country-details-container">
+			<div class="content-wrapper">
+				<h1>
+					Diario de viaje a <span th:text="${countryName}"
+						style="color: #d8b08c;">Nombre del País</span>
+				</h1>
+				<h3>"Tus momentos, tu historia"</h3><br>
+			</div>
+									
+			<div class="container">
+				<!-- Mensaje cuando no hay anécdotas -->
+				<div class="text-center py-2" th:if="${stories.empty}">
+					<img id="no-results-image" src="/img/no-results.png" alt="No hay anécdotas" >
+					<h3 class="text-muted">¡Aún no tienes anécdotas guardadas!</h3>
+					<p class="text-muted">Comienza a crear recuerdos de tu viaje haciendo clic en el botón +</p>
+				</div>
+
+				<div class="row row-cols-1 row-cols-md-3 g-4" th:unless="${stories.empty}">
+				    <div class="col" th:each="story : ${stories}">
+				        <div class="card h-100 shadow-sm custom-card">
+				            <img loading="lazy" 
+				            	th:src="@{${story.imagen}}"
+				                 class="card-img-top"
+				                 alt="Imagen de la anécdota"
+				                 style="object-fit: cover; height: 200px;">
+				            <div class="card-body">
+				                <h5 class="card-title" th:text="${story.titulo}">Título de la anécdota</h5>
+				                <div class="d-flex align-items-start gap-2">
+					                <p class="card-text descripcion-editable"
+					                 th:text = "${story.descripcion}" 
+					                 th:attr="data-story-id=${story.id}"
+					                 th:id="'descripcion-' + ${story.id}"
+					                 contenteditable="false"
+					                 >Descripción breve de la anécdota...</p>
+				                 
+				                 	<div class="btn-group-horizontal" role="group" aria-label="Editar botones">
+					                 	<!-- Botones para editar -->
+										<button class="btn btn-sm btn-outline-secondary" th:attr="data-id=${story.id}" onclick="editarDescripcion(this)">
+									   	 	<i class="fas fa-pen"></i>
+										</button>
+										<button class="btn btn-sm btn-outline-success d-none" 
+										 th:attr="data-id=${story.id}, data-country=${countryName}, data-trip=${tripId}"
+										 onclick="guardarDescripcion(this)">
+										    <i class="fas fa-save"></i>
+										</button>
+				            		</div>
+				              </div>
+  							</div>
+				            <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+				                <small th:text="'Fecha anécdota: ' + ${#temporals.format(story.fechaAnecdota, 'dd/MM/yyyy')}">Fecha</small>
+				            	<form th:action="@{/stories/eliminar-anecdota}" method="post" th:onsubmit="return confirm('¿Seguro que quieres eliminar esta anécdota?');">
+							        <input type="hidden" name="storyId" th:value="${story.id}" />
+							        <input type="hidden" name="tripId" th:value="${tripId}" />
+							        <input type="hidden" name="countryName" th:value="${countryName}" />
+							        <button type="submit" class="btn btn-sm borrar-anec" title="Eliminar anécdota">
+							            <i class="fas fa-trash"></i>
+							        </button>
+							    </form>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+				
+				<!-- Paginación -->
+				<div class="d-flex justify-content-center mt-4" th:if="${totalPages > 1}">
+				    <nav aria-label="Navegación de páginas">
+				        <ul class="pagination">
+				            <!-- Botón Anterior -->
+				            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+				                <a class="page-link" th:href="@{/diary/travel-diary(name=${countryName}, tripId=${tripId}, page=${currentPage - 1}, size=${pageSize})}" 
+				                   th:unless="${currentPage == 0}">Anterior</a>
+				                <span class="page-link" th:if="${currentPage == 0}">Anterior</span>
+				            </li>
+				            
+				            <!-- Números de página -->
+				            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+				                th:classappend="${currentPage == i} ? 'active'">
+				                <a class="page-link" th:href="@{/diary/travel-diary(name=${countryName}, tripId=${tripId}, page=${i}, size=${pageSize})}"
+				                   th:text="${i + 1}"></a>
+				            </li>
+				            
+				            <!-- Botón Siguiente -->
+				            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+				                <a class="page-link" th:href="@{/diary/travel-diary(name=${countryName}, tripId=${tripId}, page=${currentPage + 1}, size=${pageSize})}"
+				                   th:unless="${currentPage == totalPages - 1}">Siguiente</a>
+				                <span class="page-link" th:if="${currentPage == totalPages - 1}">Siguiente</span>
+				            </li>
+				        </ul>
+				    </nav>
+				</div>
+			</div>
+			<!-- Botón flotante para añadir anécdota -->
+			<a th:href="@{/stories/guardar-anecdota(name=${countryName}, tripId=${tripId})}"
+			   class="btn btn-primary rounded-circle shadow"
+			   style="position: fixed; bottom: 40px; right: 40px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000;">
+			    <i class="fas fa-plus"></i>
+			</a>
+		</main>
+	</div>
+	
+	
+		<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+		  <div id="toastSuccess" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+		    <div class="d-flex">
+		      <div class="toast-body">
+		        Descripción actualizada con éxito.
+		      </div>
+		      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+		    </div>
+		  </div>
+		</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script th:src="@{/js/diary.js}"></script>
+	
+</body>
+</html>

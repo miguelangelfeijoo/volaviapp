@@ -1,0 +1,212 @@
+/* Responsive Design */
+
+@media (max-width: 600px) {
+
+    .expense-form {
+        padding: 1rem;
+    }
+    
+    .expense-form .form-group {
+        width: 100%;
+    }
+    
+    .expense-form input {
+        width: 100%;
+    }
+    
+    .expense-form-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .expense-form-buttons button {
+        width: 100%;
+    }
+    
+    .expense-category {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    
+    .expense-summary, .chart-legend {
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .expense-grid {
+	    grid-template-columns: 1fr;
+	    display: inline;
+	}
+    
+    .gastos-por-categoria {
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .gastos-table {
+        width: 100%;
+        table-layout: fixed;
+        font-size: 8.5px;
+    }
+    
+    .gastos-table td {
+        word-wrap: break-word;
+        white-space: normal !important;
+    }
+    
+    .btn-delete {
+        font-size: 8.5px;
+    }
+
+    .dates-container label, 
+    .dates-container input[type="date"] {
+        width: 100%;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+    }
+
+    
+    .modern-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+        justify-content: center !important;
+    }
+    
+    .header-left, .header-right {
+        text-align: center;
+    }
+    
+    .btn {
+        margin-top: 5px;
+        font-size: 12px;
+        padding: 5px;
+    }
+    
+    .header-right {
+	    display: flex !important;
+	    margin-top: 1rem;
+	    justify-content: center;
+	    align-items: center !important;
+	    text-align: center;
+	}
+    
+    .contenedor-mapa {
+        padding: 0;
+    }
+    
+    #map {
+        width: 100%;
+    }
+    
+    .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+    	width: 100%;
+    }
+    
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .btn {
+    	padding: 0.6rem !important;
+    }
+    
+    .btn i {
+    	font-size: 10px !important;
+    }
+    
+    .btn-outline {
+    	font-size: 10px !important;
+    }
+    
+    .btn-danger {
+    	font-size: 10px !important;
+    }
+    
+    .welcome-text {
+    	display:none;
+    }
+
+    #no-results-image {
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+
+    .modern-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+        justify-content: center !important;
+    }
+
+    .header-right {
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .country-details-container .content-wrapper {
+        padding: 1rem;
+    }
+
+    .grid-container {
+        display: block;
+        grid-template-columns: 1fr;
+    }
+
+    .left-column, .right-column {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .expense-grid {
+	    grid-template-columns: 1fr;
+	}
+	
+	.category-row {
+	    grid-template-columns: 1fr;
+	}
+
+    .card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .contenedor-mapa {
+        width: 100%;
+        padding: 0;
+    }
+
+    #map {
+        width: 100%;
+    }
+
+    .country-details-container .content-wrapper {
+        padding: 0.5rem;
+    }
+    
+        .btn {
+    	padding: 0.6rem !important;
+    }
+    
+    .btn i {
+    	font-size: 10px !important;
+    }
+    
+    .btn-outline {
+    	font-size: 10px !important;
+    }
+    
+    .btn-danger {
+    	font-size: 10px !important;
+    }
+    
+    .welcome-text {
+    	display: none;
+    }
+
+}
