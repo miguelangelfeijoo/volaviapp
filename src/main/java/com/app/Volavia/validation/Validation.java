@@ -14,28 +14,36 @@ public class Validation {
 	 * @return boolean indicando si es válido o no
 	 */
 	public static boolean validarUsuario(String usuario) {
+		if (usuario == null) {
+			return false;
+		}
 		String userRegex = "^[a-zA-Z0-9]+$";
 		Pattern pattern = Pattern.compile(userRegex);
 		Matcher matcher = pattern.matcher(usuario);
-		if (usuario == null || usuario.isEmpty() || usuario.contains(" ") || !matcher.matches()) {
+		if (usuario.isEmpty() || usuario.contains(" ") || !matcher.matches()) {
 			return false;
 		}
 		return true;
 	}
 
 	/**
-	 * Valida que la contraseña cumpla con la expresión regular tenga al menos 5
-	 * caracteres alfanuméricos no sea nula, no este vacía y no contenga espacios
+	 * Valida que la contraseña cumpla con los siguientes criterios:
+	 * - Al menos 8 caracteres de longitud.
+	 * - Contiene caracteres alfanuméricos y puede incluir caracteres especiales comunes (e.g., !@#$%^&*).
+	 * - No es nula, no está vacía y no contiene espacios.
 	 * 
-	 * @param password
-	 * @return boolean indicando si es válido o no
+	 * @param password La contraseña a validar.
+	 * @return {@code true} si la contraseña es válida, {@code false} en caso contrario.
 	 */
 	public static boolean validarContrasena(String password) {
-		String passwordRegex = "^[a-zA-Z0-9]+$";
+		if (password == null) {
+			return false;
+		}
+		String passwordRegex = "^[a-zA-Z0-9!@#$%^&*]+$";
 		Pattern pattern = Pattern.compile(passwordRegex);
 		Matcher matcher = pattern.matcher(password);
 
-		if (password == null || password.isEmpty() || password.contains(" ")
+		if (password.isEmpty() || password.contains(" ") || password.length() < 8
 				|| !matcher.matches()) {
 			return false;
 		}
@@ -44,18 +52,23 @@ public class Validation {
 	}
 
 	/**
-	 * Valida que el email cumpla con la expresión regular que no sea nulo, no este
-	 * vacío y no contenga espacios
+	 * Valida que el email cumpla con un formato estándar.
+	 * La expresión regular utilizada es: ^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$
+	 * Además, valida que el email no sea nulo, no esté vacío y no contenga espacios.
 	 * 
-	 * @param email
-	 * @return boolean indicando si es válido o no
+	 * @param email El email a validar.
+	 * @return {@code true} si el email es válido, {@code false} en caso contrario.
 	 */
 	public static boolean validarEmail(String email) {
-		String emailRegex = "^[a-z0-9_.]+@+[a-z]+\\.[a-z]{2,3}$";
+		if (email == null) {
+			return false;
+		}
+		// Regex updated to prevent domain parts from starting or ending with a hyphen.
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,7}$";
 		Pattern pattern = Pattern.compile(emailRegex);
 		Matcher matcher = pattern.matcher(email);
 
-		if (email == null || email.isEmpty() || !matcher.matches() || email.contains(" ")) {
+		if (email.isEmpty() || !matcher.matches() || email.contains(" ")) {
 			return false;
 		}
 

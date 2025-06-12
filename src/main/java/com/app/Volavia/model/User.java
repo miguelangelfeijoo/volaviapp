@@ -45,7 +45,7 @@ public class User implements Serializable {
 	@Column
 	private Date fecha_registro;
 	
-	@OneToMany (cascade =  CascadeType.ALL)
+	@OneToMany (cascade =  CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn (name = "id_user") 
 	private List<Trip> trips = new LinkedList<Trip>();
 	

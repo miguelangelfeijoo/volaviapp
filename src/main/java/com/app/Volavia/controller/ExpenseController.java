@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional; // Removed
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +31,7 @@ public class ExpenseController {
     @Autowired
     private TripService tripService;
 
-    @Transactional
+    //@Transactional // Removed
     @PostMapping("/addExpense")
     public String añadirGasto(@RequestParam String descripcion, 
                               @RequestParam double importe,
@@ -40,24 +40,13 @@ public class ExpenseController {
                               @RequestParam String countryName,
                               Model model) {
 
-    	// Obtener el trip si existe
-        Optional<Trip> optionalTrip = tripService.findById(tripId);
-        if (!optionalTrip.isPresent()) {
-            model.addAttribute("error", "El viaje especificado no existe.");
-            return "plan-your-trip";
-        }
+        // Call the service method to add the expense
+        expenseService.addExpenseToTrip(descripcion, importe, category, tripId);
 
-        Trip trip = optionalTrip.get();
-
-        // Crear y guardar el nuevo gasto asociado al trip existente
-        Expense expense = new Expense();
-        expense.setDescripcion(descripcion);
-        expense.setImporte(importe);
-        expense.setCategory(category);
-        expense.setTrip(trip);
-        expenseService.añadirGasto(expense);
-
-        // Actualizar viaje y configurar el model
+        // Actualizar viaje y configurar el model.
+        // configurarViajeYModel still needs tripId and countryName, and uses tripService.
+        // The initial check for trip existence for adding expense is now in the service.
+        // If tripService.findById in configurarViajeYModel fails, it will set an error attribute.
         configurarViajeYModel(tripId, countryName, model);
         
         return "plan-your-trip";
